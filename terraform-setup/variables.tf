@@ -7,3 +7,8 @@ variable "ami_id" {
   description = "AMI ID for the instance"
   type        = string
 }
+
+variable "public_key_path" {
+  description = "Path to the public key"
+  type        = string
+}
