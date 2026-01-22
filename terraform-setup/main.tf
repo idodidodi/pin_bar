@@ -34,19 +34,15 @@ resource "aws_security_group" "win_sg" {
   }
 }
 
-data "aws_instance_password_data" "windows" {
-  instance_id = aws_instance.windows.id
-  private_key = file("~/.ssh/id_rsa")
-}
-
 resource "local_file" "inventory" {
   content = templatefile("${path.module}/inventory.tpl", {
     public_ip = aws_instance.windows.public_ip
-    password  = data.aws_instance_password_data.windows.password
+    password  = aws_instance.windows.password_data
   })
 
   filename = "${path.module}/inventory.ini"
 }
+
 
 
 resource "aws_instance" "windows" {
@@ -54,6 +50,7 @@ resource "aws_instance" "windows" {
   instance_type          = "t3.micro"
   key_name               = aws_key_pair.ansible_key.key_name
   vpc_security_group_ids = [aws_security_group.win_sg.id]
+  get_password_data = true
 
   user_data = <<EOF
 <powershell>
