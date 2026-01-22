@@ -34,21 +34,18 @@ resource "aws_security_group" "win_sg" {
   }
 }
 
-data "template_file" "ansible_inventory" {
-  template = file("${path.module}/inventory.tpl")
 
-  vars = {
-    public_ip = aws_instance.windows.public_ip
-    password  = data.aws_instance.windows_password.password
-  }
-}
 
 data "aws_instance" "windows_password" {
   instance_id = aws_instance.windows.id
 }
 
 resource "local_file" "inventory" {
-  content  = data.template_file.ansible_inventory.rendered
+  content = templatefile("${path.module}/inventory.tpl", {
+    public_ip = aws_instance.windows.public_ip
+    password  = data.aws_instance.windows_password.password
+  })
+
   filename = "${path.module}/inventory.ini"
 }
 
