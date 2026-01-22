@@ -13,3 +13,5 @@ terraform-setup/terraform.tfstate
 terraform-setup/inventory.ini
 .DS_Store
 ansible-setup/files/tglcolmex4setup.exe
+ansible-setup/inventory.ini
+terraform-setup/terraform.tfstate.backup
