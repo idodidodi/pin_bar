@@ -12,3 +12,9 @@ variable "public_key_path" {
   description = "Path to the public key"
   type        = string
 }
+
+variable "instance_count" {
+  description = "Number of instances to deploy"
+  type        = number
+  default     = 1
+}

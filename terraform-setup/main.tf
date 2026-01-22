@@ -35,9 +35,10 @@ resource "aws_security_group" "win_sg" {
 }
 
 resource "local_file" "inventory" {
+  count = var.instance_count > 0 ? 1 : 0
   content = templatefile("${path.module}/../ansible-setup/inventory.tpl", {
-    public_ip = aws_instance.windows.public_ip
-    password  = aws_instance.windows.password_data
+    public_ip = aws_instance.windows[0].public_ip
+    password  = aws_instance.windows[0].password_data
   })
   filename = "${path.module}/../ansible-setup/inventory.ini"
 }
@@ -48,6 +49,7 @@ resource "aws_instance" "windows" {
   key_name               = aws_key_pair.ansible_key.key_name
   vpc_security_group_ids = [aws_security_group.win_sg.id]
   get_password_data      = true
+  count                  = var.instance_count
 
   user_data = <<EOF
 <powershell>
