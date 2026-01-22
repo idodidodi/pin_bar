@@ -1,0 +1,20 @@
+- name: Install betglcolmex4setup.exe on Windows
+  hosts: windows
+  gather_facts: no
+
+  tasks:
+    - name: Ensure C:\Temp exists
+      win_file:
+        path: C:\Temp
+        state: directory
+
+    - name: Copy installer to server
+      win_copy:
+        src: files/betglcolmex4setup.exe
+        dest: C:\Temp\betglcolmex4setup.exe
+
+    - name: Run installer silently
+      win_package:
+        path: C:\Temp\betglcolmex4setup.exe
+        arguments: /quiet /norestart
+        state: present

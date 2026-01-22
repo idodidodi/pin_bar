@@ -11,3 +11,5 @@ terraform-setup/.terraform/providers/registry.terraform.io/hashicorp/aws/6.28.0/
 terraform-setup/.terraform/providers/registry.terraform.io/hashicorp/aws/6.28.0/darwin_arm64/terraform-provider-aws_v6.28.0_x5
 terraform-setup/terraform.tfstate
 terraform-setup/inventory.ini
+.DS_Store
+ansible-setup/files/tglcolmex4setup.exe
