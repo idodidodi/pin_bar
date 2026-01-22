@@ -34,20 +34,20 @@ resource "aws_security_group" "win_sg" {
   }
 }
 
-
-
-data "aws_instance" "windows_password" {
+data "aws_instance_password_data" "windows" {
   instance_id = aws_instance.windows.id
+  private_key = file("~/.ssh/id_rsa")
 }
 
 resource "local_file" "inventory" {
   content = templatefile("${path.module}/inventory.tpl", {
     public_ip = aws_instance.windows.public_ip
-    password  = data.aws_instance.windows_password.password
+    password  = data.aws_instance_password_data.windows.password
   })
 
   filename = "${path.module}/inventory.ini"
 }
+
 
 resource "aws_instance" "windows" {
   ami                    = var.ami_id
