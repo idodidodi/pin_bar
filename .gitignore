@@ -10,3 +10,4 @@ terraform-setup/darwin_arm64/terraform-provider-aws_v5.100.0_x5
 terraform-setup/.terraform/providers/registry.terraform.io/hashicorp/aws/6.28.0/darwin_arm64/LICENSE.txt
 terraform-setup/.terraform/providers/registry.terraform.io/hashicorp/aws/6.28.0/darwin_arm64/terraform-provider-aws_v6.28.0_x5
 terraform-setup/terraform.tfstate
+terraform-setup/inventory.ini
